@@ -1,6 +1,7 @@
 package br.com.cliente.web
 
 import br.com.cliente.usecase.CreateClientCase
+import br.com.cliente.usecase.SearchClientCase
 import br.com.cliente.usecase.UpdateClientCase
 import br.com.cliente.usecase.model.Client
 import br.com.cliente.web.request.ClientRequest
@@ -13,8 +14,13 @@ import javax.validation.Valid
 @Validated
 @RestController
 @RequestMapping("/client")
-class ClientResource(val createClientCase: CreateClientCase, val updateClientCase: UpdateClientCase) {
+class ClientResource(
+    val createClientCase: CreateClientCase,
+    val updateClientCase: UpdateClientCase,
+    val searchClientCase: SearchClientCase
+) {
 
+    @PostMapping
     fun create(@RequestBody @Valid request: ClientRequest): ResponseEntity<Void> {
         createClientCase.create(Client(request))
         return ResponseEntity(HttpStatus.CREATED)
@@ -23,10 +29,14 @@ class ClientResource(val createClientCase: CreateClientCase, val updateClientCas
     @PutMapping("/{clientId}")
     fun update(
         @RequestBody @Valid request: ClientRequest,
-        @RequestParam @Valid clientId: String
+        @PathVariable @Valid clientId: String
     ): ResponseEntity<Void> {
         updateClientCase.update(Client(request), clientId)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
+
+    @GetMapping("/{clientId}")
+    fun searchClient(@PathVariable @Valid clientId: String) =
+        searchClientCase.search(clientId)
 
 }

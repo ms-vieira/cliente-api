@@ -15,3 +15,7 @@ amazonProperties:
   secretKey: XXXXXXXXXXXXXXXXXXXXXXXXXX
   bucketName: your-bucket-name
   region: ap-south-1
+
+integration:
+  client:
+    operation-service: http://localhost:8000/operation

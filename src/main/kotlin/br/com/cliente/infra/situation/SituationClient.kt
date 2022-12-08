@@ -1,0 +1,10 @@
+package br.com.cliente.infra.situation
+
+import br.com.cliente.usecase.enums.Situation
+import org.springframework.stereotype.Component
+import kotlin.random.Random
+
+@Component
+interface SituationClient {
+    fun search(clientId: String): Situation = Situation.from(Random.nextInt(1, 2))
+}

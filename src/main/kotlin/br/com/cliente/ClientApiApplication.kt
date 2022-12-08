@@ -2,10 +2,12 @@ package br.com.cliente
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cloud.openfeign.EnableFeignClients
 
 @SpringBootApplication
-class ClienteApiApplication
+@EnableFeignClients
+class ClientApiApplication
 
 fun main(args: Array<String>) {
-	runApplication<ClienteApiApplication>(*args)
+	runApplication<ClientApiApplication>(*args)
 }

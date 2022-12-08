@@ -27,6 +27,9 @@ dependencies {
 	implementation("org.springframework.data:spring-data-commons:3.0.0")
 	//AWS S3
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.353")
+	//REST
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

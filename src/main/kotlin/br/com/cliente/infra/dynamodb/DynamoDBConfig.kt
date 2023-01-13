@@ -18,11 +18,11 @@ import java.time.ZoneOffset
 import java.util.*
 
 @Configuration
-@EnableDynamoDBRepositories(basePackages = ["br.com.cliente.infra.db.repository"])
+@EnableDynamoDBRepositories(basePackages = ["br.com.cliente.infra.repository"])
 class DynamoDBConfig(
     @Value("\${amazon.dynamodb.endpoint}") private val endpoint: String,
-    @Value("\${amazon.aws.accessKey}") private val accessKey: String,
-    @Value("\${amazon.aws.secretKey}") private val secretKey: String,
+    @Value("\${amazon.aws.accesskey}") private val accessKey: String,
+    @Value("\${amazon.aws.secretkey}") private val secretKey: String,
     @Value("\${amazon.aws.region}") private val region: String
 ) {
     companion object {

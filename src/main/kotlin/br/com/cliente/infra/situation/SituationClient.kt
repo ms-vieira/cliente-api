@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component
 import kotlin.random.Random
 
 @Component
-interface SituationClient {
+@FunctionalInterface
+class SituationClient {
     fun search(clientId: String): Situation = Situation.from(Random.nextInt(1, 2))
 }

@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 @FeignClient(
-    name = "OperationClient",
+    name = "operationClient",
     url = "\${integration.client.operation-service}"
 )
 interface OperationClient {
-
     @GetMapping("/{clientId}")
     fun getOperations(@PathVariable clientId: String): OperationClientResponse
 

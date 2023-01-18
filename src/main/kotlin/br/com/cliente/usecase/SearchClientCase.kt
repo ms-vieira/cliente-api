@@ -10,7 +10,7 @@ class SearchClientCase(
 ) {
 
     fun search(clientId: String): ClientResponse? {
-        val client = repository.findById(clientId)
+        val client = repository.findByNumberDocument(clientId)
         if (client.isPresent) return ClientResponse(client.get())
         return null
     }

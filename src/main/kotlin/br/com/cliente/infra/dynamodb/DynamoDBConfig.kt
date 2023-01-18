@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.util.*
 
 @Configuration
@@ -26,13 +25,13 @@ class DynamoDBConfig(
     @Value("\${amazon.aws.region}") private val region: String
 ) {
     companion object {
-        class LocalDateTimeConverter : DynamoDBTypeConverter<Date, LocalDateTime> {
-            override fun convert(source: LocalDateTime): Date {
-                return Date.from(source.toInstant(ZoneOffset.UTC))
+        class LocalDateTimeConverter : DynamoDBTypeConverter<String, LocalDateTime> {
+            override fun convert(source: LocalDateTime): String {
+                return source.toString()
             }
 
-            override fun unconvert(source: Date): LocalDateTime {
-                return source.toInstant().atZone(TimeZone.getDefault().toZoneId()).toLocalDateTime()
+            override fun unconvert(source: String): LocalDateTime {
+                return LocalDateTime.parse(source)
             }
         }
     }

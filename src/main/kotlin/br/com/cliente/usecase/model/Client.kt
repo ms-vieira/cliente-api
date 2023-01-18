@@ -3,7 +3,10 @@ package br.com.cliente.usecase.model
 import br.com.cliente.web.request.ClientRequest
 import org.springframework.web.multipart.MultipartFile
 
-data class Client(val request: ClientRequest) {
+data class Client(
+    val request: ClientRequest,
+    val attachDocument: MultipartFile
+) {
     val address: AddressClient = AddressClient(
         street = request.address.street,
         number = request.address.number,
@@ -14,5 +17,4 @@ data class Client(val request: ClientRequest) {
     )
     val numberDocument: String = request.numberDocument
     val observationClient: String = request.observationClient
-    val attachDocument: MultipartFile = request.attachDocument
 }

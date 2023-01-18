@@ -4,19 +4,18 @@ spring:
 
 amazon:
   dynamodb:
-    endpoint: http://localhost:8000/
+    endpoint: https://dynamodb.us-east-1.amazonaws.com
   aws:
-    accesskey: key
-    secretkey: key2
-    region: ap-south-1
+    accesskey: AKIAVHSSO2TVPHI5L32F
+    secretkey: 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
+    region: us-east-1
 
 amazonProperties:
-  endpointUrl: https://s3.us-east-2.amazonaws.com
-  accessKey: XXXXXXXXXXXXXXXXX
-  secretKey: XXXXXXXXXXXXXXXXXXXXXXXXXX
-  bucketName: your-bucket-name
-  region: ap-south-1
+  accessKey: AKIAVHSSO2TVPHI5L32F
+  secretKey: NABzDYqTQA7VGo8oaW7/po5TVNzqCvU3/ViptoAd
+  bucketName: document-prod-client-api
+  region: us-east-1
 
 integration:
   client:
-    operation-service: http://localhost:8000/operation
+    operation-service: https://prod-environment-operation-service.eba-jdji3cpm.us-east-1.elasticbeanstalk.com/operation

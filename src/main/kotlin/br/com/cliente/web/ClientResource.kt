@@ -7,11 +7,16 @@ import br.com.cliente.usecase.SearchOperationClientCase
 import br.com.cliente.usecase.UpdateClientCase
 import br.com.cliente.usecase.model.Client
 import br.com.cliente.web.request.ClientRequest
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import javax.validation.Valid
+
 
 @Validated
 @RestController
@@ -24,18 +29,24 @@ class ClientResource(
     val situationClient: SituationClient
 ) {
 
-    @PostMapping
-    fun create(@RequestBody @Valid request: ClientRequest): ResponseEntity<Void> {
-        createClientCase.create(Client(request))
+    @PostMapping(consumes = [MULTIPART_FORM_DATA_VALUE])
+    fun create(
+        @RequestParam("request") request: String,
+        @RequestParam("attachDocument") attachDocument: MultipartFile
+    ): ResponseEntity<Void> {
+        val mapper = jacksonObjectMapper()
+        val clientRequest = mapper.readValue<ClientRequest>(request)
+        createClientCase.create(Client(clientRequest, attachDocument))
         return ResponseEntity(HttpStatus.CREATED)
     }
 
     @PutMapping("/{clientId}")
     fun update(
         @RequestBody @Valid request: ClientRequest,
+        attachDocument: MultipartFile,
         @PathVariable @Valid clientId: String
     ): ResponseEntity<Void> {
-        updateClientCase.update(Client(request), clientId)
+        updateClientCase.update(Client(request, attachDocument), clientId)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 

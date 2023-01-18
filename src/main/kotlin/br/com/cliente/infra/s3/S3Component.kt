@@ -15,15 +15,15 @@ import java.io.IOException
 class S3Component(
     @Value("\${amazonProperties.bucketName}")
     private val bucketName: String? = null,
-    @Value("\${amazonProperties.endpointUrl}")
-    private val endpointUrl: String? = null,
+    @Value("\${amazonProperties.region}")
+    private val region: String? = null,
     private val s3Client: AmazonS3
 ) {
 
     fun uploadFile(file: MultipartFile): String {
         val fileName = System.currentTimeMillis().toString() + file.name
         s3Client.putObject(PutObjectRequest(bucketName, fileName, convertMultiPartToFile(file)))
-        return "$endpointUrl/$bucketName/$fileName"
+        return "$bucketName.s3-website-$region.amazonaws.com/$fileName"
     }
 
     @Throws(IOException::class)

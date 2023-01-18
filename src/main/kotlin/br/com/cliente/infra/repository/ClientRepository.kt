@@ -5,8 +5,8 @@ import org.socialsignin.spring.data.dynamodb.repository.EnableScan
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 
+
 @EnableScan
 interface ClientRepository : CrudRepository<ClientDocument, String> {
-    fun findByNumberDocument(numberDocument: String): ClientDocument
-    override fun findById(clientId: String): Optional<ClientDocument>
+    fun findByNumberDocument(number: String): Optional<ClientDocument>
 }

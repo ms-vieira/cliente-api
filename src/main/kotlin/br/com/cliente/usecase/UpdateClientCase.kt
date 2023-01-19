@@ -14,7 +14,7 @@ class UpdateClientCase(
 
     fun update(client: Client, clientId: String) {
         val attachDocument = s3Client.uploadFile(client.attachDocument)
-        val client = repository.findById(clientId)
+        val client = repository.findByNumberDocument(clientId)
         if (client.isPresent) {
             val newClient = ClientDocument(client.get(), attachDocument)
             repository.save(newClient)

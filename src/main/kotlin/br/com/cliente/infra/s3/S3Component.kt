@@ -23,7 +23,7 @@ class S3Component(
     fun uploadFile(file: MultipartFile): String {
         val fileName = System.currentTimeMillis().toString() + file.name
         s3Client.putObject(PutObjectRequest(bucketName, fileName, convertMultiPartToFile(file)))
-        return "$bucketName.s3-website-$region.amazonaws.com/$fileName"
+        return "$bucketName.s3.amazonaws.com/$fileName"
     }
 
     @Throws(IOException::class)

@@ -5,15 +5,10 @@ import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Primary
-import java.time.LocalDateTime
 import java.util.*
 
 @Configuration
@@ -24,24 +19,6 @@ class DynamoDBConfig(
     @Value("\${amazon.aws.secretkey}") private val secretKey: String,
     @Value("\${amazon.aws.region}") private val region: String
 ) {
-    companion object {
-        class LocalDateTimeConverter : DynamoDBTypeConverter<String, LocalDateTime> {
-            override fun convert(source: LocalDateTime): String {
-                return source.toString()
-            }
-
-            override fun unconvert(source: String): LocalDateTime {
-                return LocalDateTime.parse(source)
-            }
-        }
-    }
-
-    @Primary
-    @Bean
-    fun dynamoDBMapper(amazonDynamoDB: AmazonDynamoDB): DynamoDBMapper {
-        return DynamoDBMapper(amazonDynamoDB, DynamoDBMapperConfig.DEFAULT)
-    }
-
     @Bean
     fun amazonDynamoDB(): AmazonDynamoDB {
         val awsCredentials = BasicAWSCredentials(accessKey, secretKey)
@@ -55,6 +32,4 @@ class DynamoDBConfig(
 
     @Bean
     fun awsCredentials() = BasicAWSCredentials(accessKey, secretKey)
-
-
 }

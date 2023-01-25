@@ -42,11 +42,13 @@ class ClientResource(
 
     @PutMapping("/{clientId}")
     fun update(
-        @RequestBody @Valid request: ClientRequest,
-        attachDocument: MultipartFile,
-        @PathVariable @Valid clientId: String
+        @PathVariable @Valid clientId: String,
+        @RequestParam("request") request: String,
+        @RequestParam("attachDocument") attachDocument: MultipartFile
     ): ResponseEntity<Void> {
-        updateClientCase.update(Client(request, attachDocument), clientId)
+        val mapper = jacksonObjectMapper()
+        val clientRequest = mapper.readValue<ClientRequest>(request)
+        updateClientCase.update(Client(clientRequest, attachDocument), clientId)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 

@@ -17,4 +17,5 @@ data class Client(
     )
     val numberDocument: String = request.numberDocument
     val observationClient: String = request.observationClient
+    val name: String = request.name
 }

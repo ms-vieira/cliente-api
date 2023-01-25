@@ -21,6 +21,9 @@ class ClientDocument(
     @field:DynamoDBAttribute(attributeName = "ObservationClient")
     var observationClient: String = "",
 
+    @field:DynamoDBAttribute(attributeName = "Name")
+    var name: String = "",
+
     @field:DynamoDBAttribute(attributeName = "AttachDocument")
     var attachDocument: String = ""
 
@@ -36,6 +39,7 @@ class ClientDocument(
         ),
         numberDocument = client.numberDocument,
         observationClient = client.observationClient,
+        name = client.name,
         attachDocument = attachDocument
     )
 
@@ -52,6 +56,7 @@ class ClientDocument(
         },
         numberDocument = client.numberDocument,
         observationClient = client.observationClient,
+        name = client.name,
         attachDocument = attachDocument
     )
 

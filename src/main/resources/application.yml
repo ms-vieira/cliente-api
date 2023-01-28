@@ -18,4 +18,4 @@ amazonProperties:
 
 integration:
   client:
-    operation-service: https://prod-environment-operation-service.eba-jdji3cpm.us-east-1.elasticbeanstalk.com/operation
+    operation-service: http://prod-environment-operation-service.eba-jdji3cpm.us-east-1.elasticbeanstalk.com/operation

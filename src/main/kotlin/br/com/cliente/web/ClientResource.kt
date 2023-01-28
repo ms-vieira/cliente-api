@@ -6,7 +6,9 @@ import br.com.cliente.usecase.SearchClientCase
 import br.com.cliente.usecase.SearchOperationClientCase
 import br.com.cliente.usecase.UpdateClientCase
 import br.com.cliente.usecase.model.Client
+import br.com.cliente.usecase.model.ClientUpdate
 import br.com.cliente.web.request.ClientRequest
+import br.com.cliente.web.request.ClientUpdateRequest
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.http.HttpStatus
@@ -43,12 +45,9 @@ class ClientResource(
     @PutMapping("/{clientId}")
     fun update(
         @PathVariable @Valid clientId: String,
-        @RequestParam("request") request: String,
-        @RequestParam("attachDocument") attachDocument: MultipartFile
+        @RequestBody request: ClientUpdateRequest
     ): ResponseEntity<Void> {
-        val mapper = jacksonObjectMapper()
-        val clientRequest = mapper.readValue<ClientRequest>(request)
-        updateClientCase.update(Client(clientRequest, attachDocument), clientId)
+        updateClientCase.update(ClientUpdate(request), clientId)
         return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 

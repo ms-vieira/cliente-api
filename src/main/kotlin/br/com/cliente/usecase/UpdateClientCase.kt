@@ -1,23 +1,29 @@
 package br.com.cliente.usecase
 
 import br.com.cliente.infra.entity.ClientDocument
+import br.com.cliente.infra.openfeign.OperationClient
+import br.com.cliente.infra.openfeign.request.ClientOperationRequest
 import br.com.cliente.infra.repository.ClientRepository
-import br.com.cliente.infra.s3.S3Component
-import br.com.cliente.usecase.model.Client
+import br.com.cliente.usecase.model.ClientUpdate
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 
 @Component
 class UpdateClientCase(
     val repository: ClientRepository,
-    val s3Client: S3Component
+    val operationClient: OperationClient
 ) {
 
-    fun update(client: Client, clientId: String) {
-        val attachDocument = s3Client.uploadFile(client.attachDocument)
+    fun update(clientRequest: ClientUpdate, clientId: String) {
         val client = repository.findByNumberDocument(clientId)
         if (client.isPresent) {
-            val newClient = ClientDocument(client.get(), attachDocument)
+            val newClient = ClientDocument(clientRequest, clientRequest.attachDocument)
+            client.get().getClientId()?.let { newClient.setClientId(it) }
+            client.get().getCreatedAt()?.let { newClient.setCreatedAt(it) }
             repository.save(newClient)
+            val requestOperation =
+                ClientOperationRequest("UPDATE", newClient.numberDocument, LocalDateTime.now().toString())
+            operationClient.createOperation(requestOperation)
         }
     }
 }

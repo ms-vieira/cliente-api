@@ -5,8 +5,15 @@ import br.com.cliente.usecase.model.AddressClient
 import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class ClientResponse(val clientDocument: ClientDocument) {
-    val address: AddressClient? = clientDocument.addressClient?.let {
+data class ClientResponse(
+    val address: AddressClient?,
+    val numberDocument: String,
+    val observationClient: String,
+    val attachDocument: String,
+    val name : String
+) {
+ constructor(clientDocument: ClientDocument) : this (
+     address = clientDocument.addressClient?.let {
         AddressClient(
             street = it.street,
             number = clientDocument.addressClient!!.number,
@@ -15,8 +22,10 @@ data class ClientResponse(val clientDocument: ClientDocument) {
             state = clientDocument.addressClient!!.state,
             district = clientDocument.addressClient!!.district
         )
-    }
-    val numberDocument: String = clientDocument.numberDocument
-    val observationClient: String = clientDocument.observationClient
-    val attachDocument: String = clientDocument.attachDocument
+    },
+     numberDocument = clientDocument.numberDocument,
+     observationClient = clientDocument.observationClient,
+     attachDocument = clientDocument.attachDocument,
+     name = clientDocument.name)
 }
+

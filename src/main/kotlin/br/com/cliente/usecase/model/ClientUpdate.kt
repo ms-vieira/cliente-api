@@ -1,11 +1,9 @@
 package br.com.cliente.usecase.model
 
-import br.com.cliente.web.request.ClientRequest
-import org.springframework.web.multipart.MultipartFile
+import br.com.cliente.web.request.ClientUpdateRequest
 
-data class Client(
-    val request: ClientRequest,
-    val attachDocument: MultipartFile?
+data class ClientUpdate(
+    val request: ClientUpdateRequest
 ) {
     val address: AddressClient = AddressClient(
         street = request.address.street,
@@ -18,4 +16,6 @@ data class Client(
     val numberDocument: String = request.numberDocument
     val observationClient: String = request.observationClient
     val name: String = request.name
+    val attachDocument: String = request.attachDocument
 }
+

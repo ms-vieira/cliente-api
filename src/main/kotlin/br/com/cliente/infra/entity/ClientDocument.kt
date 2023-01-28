@@ -1,6 +1,7 @@
 package br.com.cliente.infra.entity
 
 import br.com.cliente.usecase.model.Client
+import br.com.cliente.usecase.model.ClientUpdate
 import com.amazonaws.services.dynamodbv2.datamodeling.*
 import org.springframework.data.annotation.Id
 import java.util.Objects.isNull
@@ -29,6 +30,21 @@ class ClientDocument(
 
 ) {
     constructor(client: Client, attachDocument: String) : this(
+        addressClient = AddressClientDocument(
+            street = client.address.street,
+            number = client.address.number,
+            zipCode = client.address.zipCode,
+            city = client.address.city,
+            state = client.address.state,
+            district = client.address.district
+        ),
+        numberDocument = client.numberDocument,
+        observationClient = client.observationClient,
+        name = client.name,
+        attachDocument = attachDocument
+    )
+
+    constructor(client: ClientUpdate, attachDocument: String) : this(
         addressClient = AddressClientDocument(
             street = client.address.street,
             number = client.address.number,

@@ -24,13 +24,10 @@ class CreateClientCase(
         val attachDocument = s3Client.uploadFile(client.attachDocument!!)
         val clientDocument = ClientDocument(client, attachDocument)
         val findClient = repository.findByNumberDocument(clientDocument.numberDocument)
-        if(findClient.isPresent){
-            findClient.get().getClientId()?.let { clientDocument.setClientId(it) }
-            findClient.get().getCreatedAt()?.let { clientDocument.setCreatedAt(it) }
-            logger.info(findClient.get().getCreatedAt().toString() + "-----" + findClient.get().getClientId().toString())
+        if (findClient.isPresent && !findClient.get().isEmpty()) {
+            findClient.get().first().getClientId()?.let { clientDocument.setClientId(it) }
+            findClient.get().first().getCreatedAt()?.let { clientDocument.setCreatedAt(it) }
         }
-        logger.info(findClient.toString())
-        logger.info(clientDocument.getCreatedAt().toString() + "-----" + clientDocument.getClientId().toString())
         repository.save(clientDocument)
         val requestOperation =
             ClientOperationRequest("CREATION", clientDocument.numberDocument, LocalDateTime.now().toString())

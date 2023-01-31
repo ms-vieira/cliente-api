@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.cloud.openfeign.FeignAutoConfiguration
 
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = ["br.com.cliente"])
 @ImportAutoConfiguration(FeignAutoConfiguration::class)
 class ClientApiApplication
 

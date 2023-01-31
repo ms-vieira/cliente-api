@@ -29,7 +29,7 @@ dependencies {
 	//AWS S3
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.353")
 	//REST
-	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

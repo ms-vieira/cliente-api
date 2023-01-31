@@ -18,8 +18,8 @@ class UpdateClientCase(
         val client = repository.findByNumberDocument(clientId)
         if (client.isPresent) {
             val newClient = ClientDocument(clientRequest, clientRequest.attachDocument)
-            client.get().getClientId()?.let { newClient.setClientId(it) }
-            client.get().getCreatedAt()?.let { newClient.setCreatedAt(it) }
+            client.get().first().getClientId()?.let { newClient.setClientId(it) }
+            client.get().first().getCreatedAt()?.let { newClient.setCreatedAt(it) }
             repository.save(newClient)
             val requestOperation =
                 ClientOperationRequest("UPDATE", newClient.numberDocument, LocalDateTime.now().toString())

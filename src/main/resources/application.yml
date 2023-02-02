@@ -6,13 +6,13 @@ amazon:
   dynamodb:
     endpoint: https://dynamodb.us-east-1.amazonaws.com
   aws:
-    accesskey: AKIAVHSSO2TVPHI5L32F
-    secretkey: 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
+    accesskey:
+    secretkey:
     region: us-east-1
 
 amazonProperties:
-  accessKey: AKIAVHSSO2TVPHI5L32F
-  secretKey: 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
+  accessKey:
+  secretKey:
   bucketName: document-prod-client-api
   region: us-east-1
 
